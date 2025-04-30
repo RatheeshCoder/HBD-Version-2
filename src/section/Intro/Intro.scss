@@ -1,0 +1,264 @@
+.Intro-section-main-container {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(to bottom, rgba(251, 202, 203, 1) 0%, rgba(247, 150, 151, 1) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 2rem;
+    overflow: hidden;
+    padding: 2rem;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .left-container {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        @media (max-width: 768px) {
+            width: 100%;
+            height: 40%;
+        }
+
+        .polaroid-flow {
+            position: relative;
+            width: 60%;
+            height: 60%;
+            transform-style: preserve-3d;
+
+            @media (max-width: 768px) {
+                width: 80%;
+                height: 100%;
+            }
+
+            .polaroid {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+
+                img {
+                    width: 80%;
+                    height: auto;
+                    object-fit: cover;
+                    border-radius: 2px;
+                }
+            }
+        }
+    }
+
+    .right-container {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 3rem;
+        padding: 3rem;
+
+        @media (max-width: 768px) {
+            width: 100%;
+            height: 60%;
+            padding: 1rem;
+            gap: 1.5rem;
+        }
+
+        .head {
+            width: 100%;
+            text-align: center;
+            animation: fadeInDown 1.2s ease;
+
+            h1 {
+                font-size: 1.5rem;
+                font-weight: 500;
+                color: #fff;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+                @media (max-width: 768px) {
+                    font-size: 1.3rem;
+                }
+
+                @media (max-width: 480px) {
+                    font-size: 1.1rem;
+                }
+            }
+        }
+
+        .text-content {
+            width: 100%;
+            text-align: center;
+            animation: fadeInUp 1.5s ease;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+
+            .cursor-blink {
+                display: inline-block;
+                width: 3px;
+                height: 1em;
+                background-color: #fff;
+                vertical-align: middle;
+                border-radius: 4px;
+                margin-left: 2px;
+                animation: blink 1s infinite;
+            }
+
+
+
+            @media (max-width: 768px) {
+                padding: 0.8rem;
+            }
+
+            p {
+                font-size: 1.2rem;
+                color: #fff;
+                margin-bottom: 1.2rem;
+                line-height: 1.6;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+
+                @media (max-width: 768px) {
+                    font-size: 1rem;
+                    margin-bottom: 0.8rem;
+                }
+
+                @media (max-width: 480px) {
+                    font-size: 0.9rem;
+                    line-height: 1.4;
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+.sound-wave-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 100px;
+    padding: 0 20px;
+    z-index: 5;
+    animation: fadeIn 2s ease;
+
+    @media (max-width: 768px) {
+        height: 80px;
+        padding: 0 10px;
+    }
+
+    @media (max-width: 480px) {
+        height: 60px;
+        padding: 0 5px;
+    }
+
+    .sound-bar {
+        width: 4px;
+        background: #fff;
+        margin: 0 3px;
+        border-radius: 4px;
+        transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: height;
+
+        @media (max-width: 768px) {
+            width: 3px;
+            margin: 0 2px;
+        }
+
+        @media (max-width: 480px) {
+            width: 2px;
+            margin: 0 1px;
+        }
+    }
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.audio-control {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    z-index: 100;
+    cursor: pointer;
+
+    img {
+        width: 30px;
+        height: 30px;
+        filter: invert(1);
+
+        @media (max-width: 480px) {
+            width: 24px;
+            height: 24px;
+        }
+    }
+}
+
+
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
