@@ -6,4 +6,15 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Hind Madurai", sans-serif;
+
+}
+
+body{
+  background-image: url('./assets/bg.gif');
+  width: 100dvw;
+  height: 100dvh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
 }

@@ -1,7 +1,6 @@
 .Intro-section-main-container {
     width: 100%;
     height: 100vh;
-    background: linear-gradient(to bottom, rgba(251, 202, 203, 1) 0%, rgba(247, 150, 151, 1) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,11 +30,11 @@
             height: 40%;
         }
 
-        .polaroid-flow {
+        .polaroid-container {
             position: relative;
-            width: 60%;
-            height: 60%;
-            transform-style: preserve-3d;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
 
             @media (max-width: 768px) {
                 width: 80%;
@@ -47,12 +46,20 @@
                 top: 0;
                 left: 0;
                 width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transform-origin: center center;
+                will-change: transform, opacity;
+                padding: 10px;
 
                 img {
-                    width: 80%;
+                    width: 100%;
                     height: auto;
                     object-fit: cover;
-                    border-radius: 2px;
+                    border-radius: 4px;
+                    transform-origin: center center;
                 }
             }
         }
@@ -117,8 +124,6 @@
                 animation: blink 1s infinite;
             }
 
-
-
             @media (max-width: 768px) {
                 padding: 0.8rem;
             }
@@ -145,120 +150,88 @@
                 }
             }
         }
-    }
-}
 
-.sound-wave-container {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    height: 100px;
-    padding: 0 20px;
-    z-index: 5;
-    animation: fadeIn 2s ease;
+        .sound-wave-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            height: 100px;
+            padding: 0 10px;
 
-    @media (max-width: 768px) {
-        height: 80px;
-        padding: 0 10px;
-    }
-
-    @media (max-width: 480px) {
-        height: 60px;
-        padding: 0 5px;
+            .sound-bar {
+                width: 2px;
+                background-color: #fff;
+                margin: 0 1px;
+                border-radius: 1px;
+                transition: height 0.3s ease;
+            }
+        }
     }
 
-    .sound-bar {
-        width: 4px;
-        background: #fff;
-        margin: 0 3px;
-        border-radius: 4px;
-        transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        will-change: height;
+    .audio-control {
+        position: absolute;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        border: none;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+
+        img {
+            width: 24px;
+            height: 24px;
+        }
 
         @media (max-width: 768px) {
-            width: 3px;
-            margin: 0 2px;
-        }
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
 
-        @media (max-width: 480px) {
-            width: 2px;
-            margin: 0 1px;
+            img {
+                width: 20px;
+                height: 20px;
+            }
         }
     }
 }
 
-/* Animations */
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-100px);
-    }
-
-    to {
+// Animations
+@keyframes blink {
+    0%, 50%, 100% {
         opacity: 1;
-        transform: translateY(0);
+    }
+    25%, 75% {
+        opacity: 0;
     }
 }
 
 @keyframes fadeInUp {
     from {
-        opacity: 0;
         transform: translateY(30px);
+        opacity: 0;
     }
-
     to {
-        opacity: 1;
         transform: translateY(0);
+        opacity: 1;
     }
 }
 
-@keyframes fadeIn {
+@keyframes fadeInDown {
     from {
+        transform: translateY(-30px);
         opacity: 0;
     }
-
     to {
+        transform: translateY(0);
         opacity: 1;
-    }
-}
-
-.audio-control {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    width: fit-content;
-    height: fit-content;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent;
-    border: none;
-    z-index: 100;
-    cursor: pointer;
-
-    img {
-        width: 30px;
-        height: 30px;
-        filter: invert(1);
-
-        @media (max-width: 480px) {
-            width: 24px;
-            height: 24px;
-        }
-    }
-}
-
-
-
-@keyframes blink {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0;
     }
 }
