@@ -4,12 +4,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: row-reverse;
     gap: 2rem;
     overflow: hidden;
     padding: 2rem;
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
+    background-image: url('../../assets/section2.gif');
+    width: 100dvw;
+    height: 100dvh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
 
     @media (max-width: 768px) {
         flex-direction: column;
@@ -206,10 +213,15 @@
 
 // Animations
 @keyframes blink {
-    0%, 50%, 100% {
+
+    0%,
+    50%,
+    100% {
         opacity: 1;
     }
-    25%, 75% {
+
+    25%,
+    75% {
         opacity: 0;
     }
 }
@@ -219,6 +231,7 @@
         transform: translateY(30px);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
@@ -230,6 +243,7 @@
         transform: translateY(-30px);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;

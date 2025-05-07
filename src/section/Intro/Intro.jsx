@@ -1,12 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Intro.scss';
-import img1 from '../../assets/photo1.svg';
-import img2 from '../../assets/photo2.svg';
-import img3 from '../../assets/photo3.svg';
-import img4 from '../../assets/photo4.svg';
-import img5 from '../../assets/photo5.svg';
+import img1 from '../../assets/Img1.svg';
+import img2 from '../../assets/Img2.svg';
+import img3 from '../../assets/Img3.svg';
+import img4 from '../../assets/Img4.svg';
+import img5 from '../../assets/Img5.svg';
+import img6 from '../../assets/Img6.svg';
+import img7 from '../../assets/Img7.svg';
+import img8 from '../../assets/Img8.svg';
+import img9 from '../../assets/Img9.svg';
+import img10 from '../../assets/Img10.svg';
+import img11 from '../../assets/Img11.svg';
+import img12 from '../../assets/Img12.svg';
+import img13 from '../../assets/Img13.svg';
+import img14 from '../../assets/Img14.svg';
+import img15 from '../../assets/Img15.svg';
 import { gsap } from 'gsap';
-import birthdaySong from '../../assets/Lover-Thaensudare-Bgm.mp3';
+import birthdaySong from '../../assets/song1.mp3';
 import PlayIcon from '../../assets/play.svg';
 import PauseIcon from '../../assets/pause.svg';
 
@@ -18,11 +28,11 @@ const Intro = () => {
     const [typedWords1, setTypedWords1] = useState([]);
 
     const imageContainerRef = useRef(null);
-    const audioRef = useRef(null);
+    const videoRef = useRef(null);
     const animationIntervalRef = useRef(null);
     const typingSpeedRef = useRef(200);
 
-    const images = [img1, img2, img3, img4, img5];
+    const images = [img1, img2, img3, img4, img5, img6,img7, img8, img9, img10, img11, img12,img13, img14, img15];
     const words1 =
         'உங்கள் பிறந்தநாளில் மகிழ்ச்சியும், நலமும், செழிப்பும் நிறைந்திருக்க வாழ்த்துகிறேன். இந்த சிறப்பான நாளில் உங்கள் அனைத்து கனவுகளும் நனவாக வாழ்த்துக்கள்!'.split(
             ' '
@@ -41,23 +51,58 @@ const Intro = () => {
         };
     }, []);
 
+    // Automatically start playing the video when the component mounts
     useEffect(() => {
-        const audioTimer = setTimeout(() => {
-            if (audioRef.current) {
-                audioRef.current
-                    .play()
-                    .then(() => {
+        const playVideo = async () => {
+            try {
+                if (videoRef.current) {
+                    // Set up video properties
+                    videoRef.current.muted = false; // Start with sound
+                    videoRef.current.playsInline = true;
+                    videoRef.current.loop = true;
+                    
+                    // Try playing the video
+                    await videoRef.current.play();
+                    setIsPlaying(true);
+                    startSoundAnimation();
+                    console.log("Autoplay started successfully");
+                }
+            } catch (error) {
+                console.error("Autoplay failed:", error);
+                // If autoplay fails, try again with muted (which has fewer restrictions)
+                try {
+                    if (videoRef.current) {
+                        videoRef.current.muted = true;
+                        await videoRef.current.play();
                         setIsPlaying(true);
                         startSoundAnimation();
-                    })
-                    .catch((err) => {
-                        console.error('Audio play failed:', err);
-                    });
+                        console.log("Muted autoplay started successfully");
+                        
+                        // Then try to unmute after user interaction
+                        const unmute = () => {
+                            if (videoRef.current) {
+                                videoRef.current.muted = false;
+                                document.removeEventListener('click', unmute);
+                                document.removeEventListener('touchstart', unmute);
+                            }
+                        };
+                        
+                        document.addEventListener('click', unmute);
+                        document.addEventListener('touchstart', unmute);
+                    }
+                } catch (mutedError) {
+                    console.error("Even muted autoplay failed:", mutedError);
+                }
             }
-        }, 0);
+        };
 
+        playVideo();
+        
+        // Attempt to play again after a short delay
+        const retryTimer = setTimeout(playVideo, 1000);
+        
         return () => {
-            clearTimeout(audioTimer);
+            clearTimeout(retryTimer);
             if (animationIntervalRef.current) {
                 clearInterval(animationIntervalRef.current);
             }
@@ -124,20 +169,19 @@ const Intro = () => {
 
     const togglePlay = (e) => {
         e.stopPropagation();
-        if (audioRef.current) {
+        if (videoRef.current) {
             if (isPlaying) {
-                audioRef.current.pause();
+                videoRef.current.pause();
                 if (animationIntervalRef.current) {
                     clearInterval(animationIntervalRef.current);
                 }
             } else {
-                audioRef.current
-                    .play()
+                videoRef.current.play()
                     .then(() => {
                         startSoundAnimation();
                     })
                     .catch((err) => {
-                        console.error('Audio play failed:', err);
+                        console.error('Video play failed:', err);
                     });
             }
             setIsPlaying(!isPlaying);
@@ -186,12 +230,20 @@ const Intro = () => {
             </div>
 
             <button className="audio-control" onClick={togglePlay}>
-                <img src={isPlaying ? PauseIcon : PlayIcon} alt={isPlaying ? 'Pause' : 'Play'} />
+                <img src={!isPlaying ? PauseIcon : PlayIcon} alt={isPlaying ? 'Pause' : 'Play'} />
             </button>
 
-            <audio ref={audioRef} loop>
+            {/* Using video tag for better autoplay support */}
+            <video 
+                ref={videoRef}
+                style={{ display: 'none' }} 
+                playsInline 
+                preload="auto"
+                loop
+            >
                 <source src={birthdaySong} type="audio/mpeg" />
-            </audio>
+                Your browser does not support the video tag.
+            </video>
         </section>
     );
 };

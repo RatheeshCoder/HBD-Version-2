@@ -1,0 +1,62 @@
+.Love-section-main-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 2rem;
+    overflow: hidden;
+    padding: 2rem;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+    // background: #f11864;
+    background-image: url('../../assets/section2.gif');
+    width: 100dvw;
+    height: 100dvh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+
+    .head-title{
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        gap: 1rem;
+
+        h1{
+            font-size: 20rem;
+            color: #fff;
+            text-align: center;
+            font-weight: 700;
+           
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            &:nth-child(1){
+                background-image: url('../../assets/Img1.svg');
+            }
+            &:nth-child(2){
+                background-image: url('../../assets/Img2.svg');
+            }
+            &:nth-child(3){
+                background-image: url('../../assets/Img3.svg');
+            }
+            &:nth-child(4){
+                background-image: url('../../assets/Img4.svg');
+            }
+           
+
+        }
+    }
+
+
+
+}
