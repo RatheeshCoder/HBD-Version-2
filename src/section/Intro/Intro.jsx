@@ -23,35 +23,16 @@ import PauseIcon from '../../assets/pause.svg';
 const Intro = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [soundBars, setSoundBars] = useState(Array(40).fill(4));
-    const [isMobile, setIsMobile] = useState(false);
-    const [typedWords1, setTypedWords1] = useState([]);
 
     const imageContainerRef = useRef(null);
     const videoRef = useRef(null);
     const animationIntervalRef = useRef(null);
-    const typingSpeedRef = useRef(200);
 
-    const images = [img1, img2, img3, img4, img5, img6,img7, img8, img9, img10, img11, img12,img13, img14, img15];
-    const words1 =
-        'உங்கள் பிறந்தநாளில் மகிழ்ச்சியும், நலமும், செழிப்பும் நிறைந்திருக்க வாழ்த்துகிறேன். இந்த சிறப்பான நாளில் உங்கள் அனைத்து கனவுகளும் நனவாக வாழ்த்துக்கள்!'.split(
-            ' '
-        );
+    const images = [img1, img2, img15, img4, img5, img6,img7, img8, img9, img10, img11, img12,img13, img14, img3];
+  
 
-    useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
 
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
 
-        return () => {
-            window.removeEventListener('resize', checkMobile);
-        };
-    }, []);
-
-    // Automatically start playing the video when the component mounts
     useEffect(() => {
         const playVideo = async () => {
             try {
@@ -64,7 +45,6 @@ const Intro = () => {
                     // Try playing the video
                     await videoRef.current.play();
                     setIsPlaying(true);
-                    startSoundAnimation();
                     console.log("Autoplay started successfully");
                 }
             } catch (error) {
@@ -75,7 +55,6 @@ const Intro = () => {
                         videoRef.current.muted = true;
                         await videoRef.current.play();
                         setIsPlaying(true);
-                        startSoundAnimation();
                         console.log("Muted autoplay started successfully");
                         
                         // Then try to unmute after user interaction
@@ -138,34 +117,9 @@ const Intro = () => {
         return () => clearTimeout(timer);
     }, [currentIndex]);
 
-    useEffect(() => {
-        let timeoutId;
 
-        const typeFirstSentence = () => {
-            if (typedWords1.length < words1.length) {
-                setTypedWords1((prevWords) => [...prevWords, words1[prevWords.length]]);
-                timeoutId = setTimeout(typeFirstSentence, typingSpeedRef.current);
-            }
-        };
 
-        timeoutId = setTimeout(typeFirstSentence, 1000);
 
-        return () => {
-            clearTimeout(timeoutId);
-        };
-    }, [typedWords1.length]);
-
-    const startSoundAnimation = () => {
-        if (animationIntervalRef.current) {
-            clearInterval(animationIntervalRef.current);
-        }
-
-        animationIntervalRef.current = setInterval(() => {
-            setSoundBars((prevBars) =>
-                prevBars.map(() => Math.floor(Math.random() * 80) + 10)
-            );
-        }, 800);
-    };
 
     const togglePlay = (e) => {
         e.stopPropagation();
@@ -177,9 +131,7 @@ const Intro = () => {
                 }
             } else {
                 videoRef.current.play()
-                    .then(() => {
-                        startSoundAnimation();
-                    })
+                    
                     .catch((err) => {
                         console.error('Video play failed:', err);
                     });
@@ -188,7 +140,6 @@ const Intro = () => {
         }
     };
 
-    const displayBars = isMobile ? Math.min(20, soundBars.length) : soundBars.length;
 
     return (
         <section className="Intro-section-main-container">
@@ -207,26 +158,8 @@ const Intro = () => {
             </div>
 
             <div className="right-container">
-                <div className="head">
-                    <h1>இனிய பிறந்தநாள் வாழ்த்துக்கள்!</h1>
-                </div>
+              
 
-                <div className="text-content">
-                    <p>
-                        {typedWords1.join(' ')}
-                        <span className="cursor-blink"></span>
-                    </p>
-                </div>
-
-                <div className="sound-wave-container">
-                    {soundBars.slice(0, displayBars).map((height, index) => (
-                        <div
-                            key={index}
-                            className="sound-bar"
-                            style={{ height: `${height}px` }}
-                        ></div>
-                    ))}
-                </div>
             </div>
 
             <button className="audio-control" onClick={togglePlay}>

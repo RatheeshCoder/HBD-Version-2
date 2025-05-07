@@ -4,22 +4,92 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     gap: 2rem;
     overflow: hidden;
     padding: 2rem;
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
-    // background: #f11864;
-    background-image: url('../../assets/section2.gif');
+    background: #f11864;
     width: 100dvw;
     height: 100dvh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
+    transition: background-color 2s ease;
 
-    .head-title{
+    .audio-control {
+        display: none;
+    }
+
+    // Add multiple particle elements for enhanced visual effect
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+
+    &::before {
+        top: 20%;
+        left: 15%;
+        animation: float 15s infinite linear;
+    }
+
+    &::after {
+        bottom: 20%;
+        right: 15%;
+        width: 40px;
+        height: 40px;
+        animation: float 20s infinite linear reverse;
+    }
+
+    // Additional decorative elements
+    .particle {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        pointer-events: none;
+
+        &:nth-child(1) {
+            top: 10%;
+            right: 25%;
+            width: 15px;
+            height: 15px;
+            animation: float 12s infinite linear 2s;
+        }
+
+        &:nth-child(2) {
+            bottom: 15%;
+            left: 20%;
+            width: 25px;
+            height: 25px;
+            animation: float 18s infinite linear 1s;
+        }
+
+        &:nth-child(3) {
+            top: 40%;
+            left: 10%;
+            width: 30px;
+            height: 30px;
+            animation: float 22s infinite linear 3s;
+        }
+
+        &:nth-child(4) {
+            bottom: 30%;
+            right: 10%;
+            width: 20px;
+            height: 20px;
+            animation: floatReverse 16s infinite linear;
+        }
+    }
+
+    .head-title {
         width: 100%;
         height: fit-content;
         display: flex;
@@ -27,36 +97,285 @@
         align-items: center;
         flex-direction: row;
         gap: 1rem;
+        position: absolute;
+        top: 10%;
+        z-index: 10;
 
-        h1{
+        h1 {
             font-size: 20rem;
             color: #fff;
             text-align: center;
             font-weight: 700;
-           
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform-origin: center;
+            will-change: transform, opacity;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
 
-            &:nth-child(1){
-                background-image: url('../../assets/Img1.svg');
+            // Responsive font size
+            @media (max-width: 1200px) {
+                font-size: 15rem;
             }
-            &:nth-child(2){
-                background-image: url('../../assets/Img2.svg');
-            }
-            &:nth-child(3){
-                background-image: url('../../assets/Img3.svg');
-            }
-            &:nth-child(4){
-                background-image: url('../../assets/Img4.svg');
-            }
-           
 
+            @media (max-width: 992px) {
+                font-size: 12rem;
+            }
+
+            @media (max-width: 768px) {
+                font-size: 8rem;
+                gap: 0.5rem;
+            }
+
+            @media (max-width: 576px) {
+                font-size: 5rem;
+                gap: 0.25rem;
+            }
+
+            @media (max-width: 390px) {
+                font-size: 4rem;
+            }
+        }
+
+        // Adjust gap for smaller screens
+        @media (max-width: 768px) {
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 480px) {
+            gap: 0.25rem;
         }
     }
 
+    .image-container {
+        width: 100%;
+        height: 60%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 5;
+        perspective: 1000px; // Add perspective for 3D effects
+        margin-top: 12rem; // Add space below title
 
+        // Responsive adjustments for image container
+        @media (max-width: 992px) {
+            height: 50%;
+            margin-top: 10rem;
+        }
 
+        @media (max-width: 768px) {
+            flex-wrap: wrap;
+            height: auto;
+            margin-top: 8rem;
+        }
+
+        @media (max-width: 576px) {
+            margin-top: 7rem;
+        }
+
+        .img-content {
+            width: 20%;
+            height: auto;
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 12px;
+            margin: 0 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            will-change: transform, opacity, box-shadow;
+            cursor: pointer;
+            overflow: hidden;
+            transition: box-shadow 0.4s ease;
+            transform-style: preserve-3d; // Enhanced 3D effects
+            backface-visibility: hidden;
+
+            // Responsive adjustments for image size
+            @media (max-width: 1200px) {
+                width: 22%;
+                margin: 0 1rem;
+            }
+
+            @media (max-width: 992px) {
+                width: 22%;
+                padding: 0.75rem;
+                margin: 0 0.75rem;
+            }
+
+            @media (max-width: 768px) {
+                width: 40%;
+                margin: 0.5rem;
+            }
+
+            @media (max-width: 576px) {
+                width: 45%;
+                padding: 0.5rem;
+                margin: 0.25rem;
+            }
+
+            &:hover {
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+                display: block;
+                object-fit: cover;
+                backface-visibility: hidden;
+            }
+        }
+    }
+
+    // Portrait orientation adjustments
+    @media (orientation: portrait) and (max-width: 768px) {
+        flex-direction: column;
+
+        .head-title {
+            top: 5%;
+        }
+
+        .image-container {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 6rem;
+
+            .img-content {
+                width: 45%;
+                max-width: 200px;
+                margin: 0.25rem;
+            }
+        }
+    }
+
+    // Small height adjustments
+    @media (max-height: 600px) {
+        .head-title {
+            top: 5%;
+
+            h1 {
+                font-size: 4rem;
+            }
+        }
+
+        .image-container {
+            margin-top: 5rem;
+        }
+    }
+
+    // Make sure container is full screen on small devices
+    @media (max-width: 576px) {
+        padding: 1rem;
+        height: 100vh;
+        height: 100dvh;
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.2;
+    }
+
+    25% {
+        transform: translate(100px, 50px) rotate(90deg) scale(1.2);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translate(200px, 0) rotate(180deg) scale(1);
+        opacity: 0.2;
+    }
+
+    75% {
+        transform: translate(100px, -50px) rotate(270deg) scale(1.2);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: translate(0, 0) rotate(360deg) scale(1);
+        opacity: 0.2;
+    }
+}
+
+@keyframes floatReverse {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.2;
+    }
+
+    25% {
+        transform: translate(-60px, 30px) rotate(-90deg) scale(1.1);
+        opacity: 0.4;
+    }
+
+    50% {
+        transform: translate(-120px, 0) rotate(-180deg) scale(1);
+        opacity: 0.2;
+    }
+
+    75% {
+        transform: translate(-60px, -30px) rotate(-270deg) scale(1.1);
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: translate(0, 0) rotate(-360deg) scale(1);
+        opacity: 0.2;
+    }
+}
+
+// Responsive animations for smaller screens
+@media (max-width: 768px) {
+    @keyframes float {
+        0% {
+            transform: translate(0, 0) rotate(0deg) scale(1);
+            opacity: 0.2;
+        }
+
+        25% {
+            transform: translate(40px, 20px) rotate(90deg) scale(1.2);
+            opacity: 0.5;
+        }
+
+        50% {
+            transform: translate(80px, 0) rotate(180deg) scale(1);
+            opacity: 0.2;
+        }
+
+        75% {
+            transform: translate(40px, -20px) rotate(270deg) scale(1.2);
+            opacity: 0.5;
+        }
+
+        100% {
+            transform: translate(0, 0) rotate(360deg) scale(1);
+            opacity: 0.2;
+        }
+    }
+
+    @keyframes floatReverse {
+        0% {
+            transform: translate(0, 0) rotate(0deg) scale(1);
+            opacity: 0.2;
+        }
+
+        25% {
+            transform: translate(-30px, 15px) rotate(-90deg) scale(1.1);
+            opacity: 0.4;
+        }
+
+        50% {
+            transform: translate(-60px, 0) rotate(-180deg) scale(1);
+            opacity: 0.2;
+        }
+
+        75% {
+            transform: translate(-30px, -15px) rotate(-270deg) scale(1.1);
+            opacity: 0.4;
+        }
+
+        100% {
+            transform: translate(0, 0) rotate(-360deg) scale(1);
+            opacity: 0.2;
+        }
+    }
 }

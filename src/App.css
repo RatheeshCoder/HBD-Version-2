@@ -9,6 +9,68 @@
 
 }
 
-body{
+.audio-control{
+  display: none !important;
+}
 
+
+/* App.css */
+
+.app-container {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.page-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+}
+
+.loading-screen h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.countdown-timer {
+  width: 80%;
+  max-width: 400px;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.timer-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #3498db, #9b59b6);
+  animation: countdown 15s linear forwards;
+}
+
+@keyframes countdown {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
 }
